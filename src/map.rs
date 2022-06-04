@@ -10,6 +10,7 @@ pub enum TileType {
 
 pub struct Map {
     pub tiles: Vec<TileType>,
+    pub reveled_tiles: Vec<bool>,
 }
 
 pub fn map_idx(x:i32, y: i32) -> usize {
@@ -40,6 +41,11 @@ impl BaseMap for Map {
 
         exits
     }
+
+    fn is_opaque(&self, idx: usize) -> bool {
+        self.tiles[idx as usize] != TileType::Floor
+    }
+
     fn get_pathing_distance(&self, idx1: usize, idx2: usize) -> f32 {
         DistanceAlg::Pythagoras
             .distance2d(
@@ -80,6 +86,7 @@ impl Map {
     pub fn new() -> Self {
         Self {
             tiles: vec![TileType::Floor; NUM_TILES],
+            reveled_tiles: vec![false; NUM_TILES],
         }
     }
 
