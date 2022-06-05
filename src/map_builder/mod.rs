@@ -4,7 +4,9 @@ mod automata;
 mod empty;
 mod rooms;
 mod drunkard;
+mod prefab;
 
+use self::prefab::apply_prefab;
 use self::rooms::*;
 use self::automata::*;
 use self::drunkard::*;
@@ -30,6 +32,7 @@ impl MapBuilder {
         };
 
         let mut mb = architect.new(rng);
+        apply_prefab(&mut mb, rng);
         mb
     }
 
